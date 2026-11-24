@@ -1,0 +1,57 @@
+{
+  "name": "MedicineLog",
+  "type": "object",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "shed": {
+      "type": "string"
+    },
+    "medicine_name": {
+      "type": "string"
+    },
+    "batch_number": {
+      "type": "string"
+    },
+    "date_administered": {
+      "type": "string",
+      "format": "date"
+    },
+    "withdrawal_days": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3650
+    },
+    "clearance_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "logged_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "owner_id",
+    "shed",
+    "medicine_name",
+    "batch_number",
+    "date_administered",
+    "withdrawal_days",
+    "clearance_date",
+    "logged_at",
+    "logged_by"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
