@@ -21,6 +21,22 @@
     },
     "request_id": {
       "type": "string"
+    },
+    "ration_type": {
+      "type": "string",
+      "enum": [
+        "Starter Crumb",
+        "Grower Pellets",
+        "Finisher Pellets",
+        "Withdrawal Ration"
+      ]
+    },
+    "cost_per_tonne": {
+      "type": "number",
+      "minimum": 0
+    },
+    "ticket_reference": {
+      "type": "string"
     }
   },
   "required": [
