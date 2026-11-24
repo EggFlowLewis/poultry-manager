@@ -1,0 +1,69 @@
+{
+  "name": "FarmContact",
+  "type": "object",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "logged_by": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "contact_type": {
+      "type": "string",
+      "enum": [
+        "Supplier",
+        "Customer / Processor"
+      ]
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Feed Mill",
+        "Hatchery / Chicks",
+        "Poultry Vet",
+        "Processor / Abattoir",
+        "Fallen Stock Collector",
+        "Bedding & Heating",
+        "Equipment & Maintenance"
+      ]
+    },
+    "contact_person": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "account_ref": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "owner_id",
+    "company_name",
+    "contact_type",
+    "category",
+    "contact_person",
+    "phone",
+    "email",
+    "logged_at",
+    "logged_by"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
