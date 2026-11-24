@@ -47,6 +47,12 @@
     },
     "source_reference": {
       "type": "string"
+    },
+    "supplier_name": {
+      "type": "string"
+    },
+    "supplier_contact_id": {
+      "type": "string"
     }
   },
   "required": [
