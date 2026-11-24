@@ -1,0 +1,33 @@
+{
+  "name": "BiosecurityModeEvent",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "alert": {
+      "type": "boolean"
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "logged_by": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "required": [
+    "owner_id",
+    "alert",
+    "logged_at",
+    "logged_by"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
