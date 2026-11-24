@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /overview
+Disallow: /crop-cycles
+Disallow: /staff-
+Disallow: /audit-vault
+Disallow: /feed-silos
+Disallow: /flock-financials
+Disallow: /settings
+Disallow: /gate-
+Sitemap: https://poultrymanager.uk/sitemap.xml
