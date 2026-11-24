@@ -1,3 +1,3 @@
 import {createFileRoute} from "@tanstack/react-router";
-import {Page} from "./staff-shifts";
+import {Page} from "@/components/StaffCheckinPage";
 export const Route=createFileRoute("/staff-checkin")({ssr:false,head:()=>({meta:[{title:"Staff Check-In | Poultry Manager"}]}),component:Page});
