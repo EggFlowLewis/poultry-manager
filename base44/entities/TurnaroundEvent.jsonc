@@ -1,0 +1,51 @@
+{
+  "name": "TurnaroundEvent",
+  "type": "object",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "shed": {
+      "type": "string"
+    },
+    "cycle_key": {
+      "type": "string"
+    },
+    "step": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 6
+    },
+    "completed": {
+      "type": "boolean"
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "logged_by": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "owner_id",
+    "shed",
+    "cycle_key",
+    "step",
+    "completed",
+    "logged_at",
+    "logged_by",
+    "user_id"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
