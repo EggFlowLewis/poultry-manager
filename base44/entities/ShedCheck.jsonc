@@ -70,6 +70,10 @@
     },
     "aipz_wild_bird": {
       "type": "boolean"
+    },
+    "handover_note": {
+      "type": "string",
+      "maxLength": 1000
     }
   },
   "required": [
