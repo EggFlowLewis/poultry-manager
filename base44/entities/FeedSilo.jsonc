@@ -13,7 +13,7 @@
     },
     "capacity_tonnes": {
       "type": "number",
-      "exclusiveMinimum": 0
+      "minimum": 0.001
     },
     "started_at": {
       "type": "string",
