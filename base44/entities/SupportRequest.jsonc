@@ -1,0 +1,46 @@
+{
+  "name": "SupportRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "farm_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "topic": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "logged_at": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "farm_name",
+    "email",
+    "topic",
+    "message",
+    "logged_at",
+    "status"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": false,
+    "delete": false
+  }
+}
