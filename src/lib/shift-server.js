@@ -4,7 +4,7 @@ import { z } from "zod";
 import { requireUser } from "@/lib/auth-middleware";
 const today=()=>new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/London",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
 const email=u=>String(u.email||"").trim().toLowerCase();
-const checkInput=z.object({assignment:z.string().min(1).max(128),shed:z.string().min(1).max(150),shift:z.enum(["Morning Check","Evening Check"]),dead:z.number().int().min(0).max(10000000),culls:z.number().int().min(0).max(10000000),feed:z.number().min(0).max(10000000),water:z.number().min(0).max(1000000000),temp:z.number().min(-50).max(70),humidity:z.number().min(0).max(100),aipz_disinfectant:z.boolean().optional(),aipz_wild_bird:z.boolean().optional()});
+const checkInput=z.object({assignment:z.string().min(1).max(128),shed:z.string().min(1).max(150),shift:z.enum(["Morning Check","Evening Check"]),dead:z.number().int().min(0).max(10000000),culls:z.number().int().min(0).max(10000000),feed:z.number().min(0).max(10000000),water:z.number().min(0).max(1000000000),temp:z.number().min(-50).max(70),humidity:z.number().min(0).max(100),aipz_disinfectant:z.boolean().optional(),aipz_wild_bird:z.boolean().optional(),handover_note:z.string().trim().max(1000).optional()});
 export const getShiftData=createServerFn({method:"GET"}).middleware([requireUser]).handler(async({context})=>{
  const u=context.user,db=context.getBase44().asServiceRole.entities,day=today();
  if(u.role==="admin"){const [assignments,crops,checks]=await Promise.all([db.StaffAssignment.filter({owner_id:u.id}),db.CropCycle.filter({created_by_id:u.id}),db.ShedCheck.filter({owner_id:u.id,day})]);return {mode:"owner",assignments,crops:crops.map(c=>({shed:c.shed})),checks,day};}
