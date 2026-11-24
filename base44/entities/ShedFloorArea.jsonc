@@ -1,0 +1,34 @@
+{
+  "name": "ShedFloorArea",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "shed": {
+      "type": "string"
+    },
+    "area_m2": {
+      "type": "number",
+      "minimum": 0.01
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "type": "object",
+  "required": [
+    "owner_id",
+    "shed",
+    "area_m2",
+    "logged_at"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
