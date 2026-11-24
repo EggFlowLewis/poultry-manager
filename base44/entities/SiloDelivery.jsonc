@@ -37,6 +37,16 @@
     },
     "ticket_reference": {
       "type": "string"
+    },
+    "imported_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "imported_by": {
+      "type": "string"
+    },
+    "source_reference": {
+      "type": "string"
     }
   },
   "required": [
