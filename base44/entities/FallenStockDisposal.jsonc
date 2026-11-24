@@ -1,0 +1,64 @@
+{
+  "name": "FallenStockDisposal",
+  "type": "object",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "disposal_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "shed": {
+      "type": "string"
+    },
+    "carcasses_removed": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "method": {
+      "type": "string",
+      "enum": [
+        "Licensed Fallen Stock Collector",
+        "On-Site Approved Incinerator",
+        "Cold Store / Freezer"
+      ]
+    },
+    "reference": {
+      "type": "string"
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "logged_by": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "owner_id",
+    "disposal_date",
+    "shed",
+    "carcasses_removed",
+    "method",
+    "reference",
+    "logged_at",
+    "logged_by",
+    "user_id",
+    "request_id"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
