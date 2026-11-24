@@ -1,0 +1,67 @@
+{
+  "name": "CompletedCropArchive",
+  "type": "object",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "crop_name": {
+      "type": "string"
+    },
+    "shed": {
+      "type": "string"
+    },
+    "breed": {
+      "type": "string"
+    },
+    "placement_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "clearance_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "birds_placed": {
+      "type": "integer"
+    },
+    "birds_harvested": {
+      "type": "integer"
+    },
+    "total_live_weight_kg": {
+      "type": "number"
+    },
+    "total_feed_kg": {
+      "type": "number"
+    },
+    "imported_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "imported_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "owner_id",
+    "crop_name",
+    "shed",
+    "breed",
+    "placement_date",
+    "clearance_date",
+    "birds_placed",
+    "birds_harvested",
+    "total_live_weight_kg",
+    "total_feed_kg",
+    "imported_at",
+    "imported_by"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
