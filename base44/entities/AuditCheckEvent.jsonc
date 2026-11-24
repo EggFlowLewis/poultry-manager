@@ -1,0 +1,51 @@
+{
+  "name": "AuditCheckEvent",
+  "type": "object",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "check_key": {
+      "type": "string",
+      "enum": [
+        "water",
+        "footbath",
+        "rodent",
+        "disposal"
+      ]
+    },
+    "completed": {
+      "type": "boolean"
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "logged_by": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "day": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "owner_id",
+    "check_key",
+    "completed",
+    "logged_at",
+    "logged_by",
+    "user_id",
+    "day"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
