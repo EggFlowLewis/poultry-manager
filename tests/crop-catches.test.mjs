@@ -1,0 +1,11 @@
+import test from "node:test";import assert from "node:assert/strict";import {cropMetrics} from "../src/lib/crop-performance.js";
+const crop={id:"c",shed:"S1",placement_date:"2026-11-20",birds_placed:1000,samples:[{day:2,weight:1500}]};
+const logs=Array.from({length:5},(_,i)=>["Morning Check","Evening Check"].map(shift=>({shed:"S1",day:"2026-11-"+(20+i),shift,dead:0,culls:0,feed:100}))).flat();
+const thin={crop_id:"c",catch_date:"2026-11-21",catch_type:"Thinning",birds_caught:200,live_weight_kg:200,rejects:3};
+const final={crop_id:"c",catch_date:"2026-11-24",catch_type:"Final Clearance",birds_caught:800,live_weight_kg:1600,rejects:5};
+test("thinning reduces headcount but not livability",()=>{const s=cropMetrics(crop,logs,"2026-11-22",null,[thin]);assert.equal(s.live,800);assert.equal(s.liv,100);assert.equal(s.fcr,600/1400);assert.equal(s.feedPerBird,250);});
+test("final clearance includes both catches without sample dependence",()=>{const s=cropMetrics({...crop,samples:[]},logs,"2026-11-25",null,[thin,final]);assert.equal(s.live,0);assert.equal(s.closed,true);assert.equal(s.age,4);assert.equal(s.fcr,1000/1800);assert.ok(Math.abs(s.epef-100*1.8*100/(3.4*s.fcr))<1e-9);});
+test("rejects not subtracted twice and catches isolated",()=>{const s=cropMetrics(crop,logs,"2026-11-22",null,[thin,{...thin,crop_id:"other"}]);assert.equal(s.removed,200);assert.equal(s.live,800);});
+test("catch day feed per bird unavailable without timing",()=>assert.equal(cropMetrics(crop,logs,"2026-11-21",null,[thin]).feedPerBird,null));
+test("missing final feed logs suppress final KPI",()=>assert.equal(cropMetrics(crop,logs.slice(0,-1),"2026-11-24",null,[thin,final]).fcr,null));
+test("historical crop stops before next placement",()=>assert.equal(cropMetrics(crop,logs,"2026-11-25","2026-11-23",[]).age,2));
