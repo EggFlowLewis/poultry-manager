@@ -1,0 +1,69 @@
+{
+  "name": "CropCatch",
+  "type": "object",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "crop_id": {
+      "type": "string"
+    },
+    "shed": {
+      "type": "string"
+    },
+    "catch_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "catch_type": {
+      "type": "string",
+      "enum": [
+        "Thinning",
+        "Final Clearance"
+      ]
+    },
+    "birds_caught": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "live_weight_kg": {
+      "type": "number",
+      "minimum": 0.001
+    },
+    "rejects": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "logged_by": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "owner_id",
+    "crop_id",
+    "shed",
+    "catch_date",
+    "catch_type",
+    "birds_caught",
+    "live_weight_kg",
+    "rejects",
+    "logged_at",
+    "logged_by",
+    "request_id"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
