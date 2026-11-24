@@ -1,0 +1,42 @@
+{
+  "name": "SiloDelivery",
+  "type": "object",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "silo_id": {
+      "type": "string"
+    },
+    "tonnes_added": {
+      "type": "number",
+      "minimum": 0.001
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "logged_by": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "owner_id",
+    "silo_id",
+    "tonnes_added",
+    "logged_at",
+    "logged_by",
+    "request_id"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
