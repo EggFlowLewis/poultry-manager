@@ -1,0 +1,60 @@
+{
+  "name": "ShedFault",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "shed": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "urgency": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "reported_by": {
+      "type": "string"
+    },
+    "staff_id": {
+      "type": "string"
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "resolved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "resolved_by": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "required": [
+    "owner_id",
+    "shed",
+    "category",
+    "urgency",
+    "note",
+    "reported_by",
+    "staff_id",
+    "logged_at",
+    "request_id"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
