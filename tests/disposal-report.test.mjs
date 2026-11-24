@@ -1,0 +1,6 @@
+import test from "node:test";import assert from "node:assert/strict";import {jsPDF} from "jspdf";import {disposalRows,drawDisposalTable} from "../src/lib/disposal-report.js";
+const record={disposal_date:"2026-11-24",shed:"Shed 1",carcasses_removed:15,method:"Cold Store / Freezer",reference:"FS-001",logged_by:"Test Owner",logged_at:"2026-11-24T07:30:00Z"};
+test("all six columns and storage warning retained",()=>{const row=disposalRows([record])[0];assert.equal(row.length,6);assert.equal(row[0],"24/11/2026");assert.equal(row[2],"15");assert.match(row[3],/temporary storage/);assert.match(row[5],/Test Owner/);assert.match(row[5],/07:30/);});
+test("collection not marked temporary",()=>assert.equal(disposalRows([{...record,method:"Licensed Fallen Stock Collector"}])[0][3],"Licensed Fallen Stock Collector"));
+test("empty register produces printable page",()=>{const doc=new jsPDF();drawDisposalTable(doc,[]);assert.equal(doc.getNumberOfPages(),2);assert.match(doc.output(),/No disposal records recorded/);});
+test("large register paginates and retains last reference",()=>{const doc=new jsPDF();drawDisposalTable(doc,disposalRows(Array.from({length:90},(_,i)=>({...record,reference:"REF-"+i}))));assert.ok(doc.getNumberOfPages()>2);assert.match(doc.output(),/REF-89/);});
