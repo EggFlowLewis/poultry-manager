@@ -1,0 +1,42 @@
+{
+  "name": "FarmProfile",
+  "type": "object",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "farm_name": {
+      "type": "string"
+    },
+    "cph": {
+      "type": "string"
+    },
+    "red_tractor_id": {
+      "type": "string"
+    },
+    "demo": {
+      "type": "boolean"
+    },
+    "demo_day": {
+      "type": "string"
+    },
+    "demo_status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "owner_id",
+    "farm_name",
+    "cph",
+    "red_tractor_id",
+    "demo"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
