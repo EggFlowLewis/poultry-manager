@@ -1,0 +1,12 @@
+import test from "node:test";import assert from "node:assert/strict";import {feedLedger,cropFeedCost} from "../src/lib/feed-ledger.js";
+const silo={id:"s",shed:"A",started_at:"2026-11-20T00:00:00Z"},crop={shed:"A",placement_date:"2026-11-21",birds_placed:1000};
+const d=(date,tonnes,price,ration="Starter Crumb")=>({silo_id:"s",logged_at:date+"T06:00:00Z",tonnes_added:tonnes,cost_per_tonne:price,ration_type:ration});
+const l=(date,feed)=>({shed:"A",day:date,shift:"Evening Check",logged_at:date+"T18:00:00Z",feed});
+const deliveries=[d("2026-11-20",2,300),d("2026-11-22",2,400,"Grower Pellets")],logs=[l("2026-11-20",1000),l("2026-11-21",500),l("2026-11-22",1000)];
+test("FIFO cost excludes prior crop use and unconsumed stock",()=>assert.equal(cropFeedCost(crop,logs,[silo],deliveries,"2026-11-22"),0.5));
+test("ration changes when prior lot exhausted",()=>assert.equal(feedLedger(silo,deliveries,logs).ration,"Grower Pellets"));
+test("mixed rations are not falsely labelled as pure",()=>assert.equal(feedLedger(silo,deliveries,logs.slice(0,2)).ration,"Mixed rations"));
+test("unpriced consumption suppresses cost",()=>assert.equal(cropFeedCost(crop,logs,[silo],[d("2026-11-20",2,undefined),deliveries[1]],"2026-11-22"),null));
+test("insufficient inventory suppresses cost",()=>assert.equal(cropFeedCost(crop,logs,[silo],deliveries.slice(0,1),"2026-11-22"),null));
+test("duplicate shift not charged twice",()=>assert.equal(cropFeedCost(crop,[...logs,logs[2]],[silo],deliveries,"2026-11-22"),0.5));
+test("historical crop cut-off excludes later usage",()=>assert.equal(cropFeedCost(crop,logs,[silo],deliveries,"2026-11-21"),0.15));
