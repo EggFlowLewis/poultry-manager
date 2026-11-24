@@ -1,0 +1,84 @@
+{
+  "name": "CropCycle",
+  "type": "object",
+  "properties": {
+    "crop_name": {
+      "type": "string"
+    },
+    "shed": {
+      "type": "string"
+    },
+    "placement_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "birds_placed": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "breed": {
+      "type": "string",
+      "enum": [
+        "Ross 308",
+        "Cobb 500"
+      ]
+    },
+    "target_days": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+    },
+    "samples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "day": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "weight": {
+            "type": "number",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "day",
+          "weight"
+        ]
+      }
+    },
+    "mortality_total": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "feed_consumed_kg": {
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "crop_name",
+    "shed",
+    "placement_date",
+    "birds_placed",
+    "breed",
+    "target_days"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}
