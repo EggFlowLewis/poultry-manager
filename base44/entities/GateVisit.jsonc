@@ -22,6 +22,20 @@
     },
     "logged_at": {
       "type": "string"
+    },
+    "departure_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "departure_method": {
+      "type": "string",
+      "enum": [
+        "visitor",
+        "owner"
+      ]
+    },
+    "departure_token_hash": {
+      "type": "string"
     }
   },
   "required": [
