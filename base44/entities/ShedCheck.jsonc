@@ -61,6 +61,15 @@
     },
     "source_reference": {
       "type": "string"
+    },
+    "aipz_required": {
+      "type": "boolean"
+    },
+    "aipz_disinfectant": {
+      "type": "boolean"
+    },
+    "aipz_wild_bird": {
+      "type": "boolean"
     }
   },
   "required": [
