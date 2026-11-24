@@ -1,0 +1,44 @@
+{
+  "name": "GateVisit",
+  "type": "object",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "visitor_name": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "vehicle_reg": {
+      "type": "string"
+    },
+    "last_farm_date": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "logged_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "owner_id",
+    "visitor_name",
+    "company",
+    "vehicle_reg",
+    "last_farm_date",
+    "purpose",
+    "logged_at"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
