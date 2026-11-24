@@ -1,0 +1,38 @@
+{
+  "name": "FeedSilo",
+  "type": "object",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "silo_name": {
+      "type": "string"
+    },
+    "shed": {
+      "type": "string"
+    },
+    "capacity_tonnes": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "owner_id",
+    "silo_name",
+    "shed",
+    "capacity_tonnes",
+    "started_at"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
