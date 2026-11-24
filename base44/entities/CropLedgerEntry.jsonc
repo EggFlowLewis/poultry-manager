@@ -1,0 +1,66 @@
+{
+  "name": "CropLedgerEntry",
+  "type": "object",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "logged_by": {
+      "type": "string"
+    },
+    "crop_id": {
+      "type": "string"
+    },
+    "entry_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "entry_type": {
+      "type": "string",
+      "enum": [
+        "Cost",
+        "Revenue"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "counterparty": {
+      "type": "string"
+    },
+    "contact_id": {
+      "type": "string"
+    },
+    "amount_gbp": {
+      "type": "number",
+      "minimum": 0.01
+    },
+    "request_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "owner_id",
+    "crop_id",
+    "entry_date",
+    "entry_type",
+    "description",
+    "counterparty",
+    "amount_gbp",
+    "request_id",
+    "logged_at",
+    "logged_by"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
