@@ -1,0 +1,29 @@
+{
+  "name": "SiteOwnerPhone",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "type": "object",
+  "required": [
+    "owner_id",
+    "phone",
+    "logged_at"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
