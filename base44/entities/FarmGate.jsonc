@@ -1,0 +1,24 @@
+{
+  "name": "FarmGate",
+  "type": "object",
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "token": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "owner_id",
+    "token"
+  ],
+  "rls": {
+    "create": false,
+    "read": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "update": false,
+    "delete": false
+  }
+}
