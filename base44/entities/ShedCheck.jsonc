@@ -69,12 +69,7 @@
     "day"
   ],
   "rls": {
-    "create": {
-      "user_condition": {
-        "role": "admin"
-      },
-      "data.owner_id": "{{user.id}}"
-    },
+    "create": false,
     "read": {
       "$or": [
         {
@@ -85,29 +80,7 @@
         }
       ]
     },
-    "update": {
-      "$and": [
-        {
-          "data.owner_id": "{{user.id}}"
-        },
-        {
-          "user_condition": {
-            "role": "admin"
-          }
-        }
-      ]
-    },
-    "delete": {
-      "$and": [
-        {
-          "data.owner_id": "{{user.id}}"
-        },
-        {
-          "user_condition": {
-            "role": "admin"
-          }
-        }
-      ]
-    }
+    "update": false,
+    "delete": false
   }
 }
