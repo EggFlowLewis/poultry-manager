@@ -1,0 +1,51 @@
+{
+  "name": "MedicineCatalog",
+  "type": "object",
+  "properties": {
+    "medicine_name": {
+      "type": "string"
+    },
+    "active_ingredient": {
+      "type": "string"
+    },
+    "default_withdrawal_days": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3650
+    },
+    "notes": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean"
+    },
+    "source_reference": {
+      "type": "string"
+    },
+    "authorization_number": {
+      "type": "string"
+    },
+    "species": {
+      "type": "string"
+    },
+    "is_verified": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "medicine_name",
+    "active_ingredient",
+    "default_withdrawal_days",
+    "is_active",
+    "source_reference",
+    "authorization_number",
+    "species",
+    "is_verified"
+  ],
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
+}
