@@ -32,6 +32,9 @@
     "trial_ends_at": {
       "type": "string",
       "format": "date-time"
+    },
+    "stripe_subscription_id": {
+      "type": "string"
     }
   },
   "required": [
