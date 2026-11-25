@@ -1,0 +1,45 @@
+{
+  "name": "OrganizationMembers",
+  "properties": {
+    "organization_id": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "Owner",
+        "Stockperson"
+      ]
+    },
+    "assigned_shed_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "revoked"
+      ]
+    }
+  },
+  "required": [
+    "organization_id",
+    "user_id",
+    "role",
+    "assigned_shed_ids",
+    "status"
+  ],
+  "type": "object",
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
+}
