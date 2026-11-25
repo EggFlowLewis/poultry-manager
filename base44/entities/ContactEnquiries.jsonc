@@ -1,0 +1,56 @@
+{
+  "name": "ContactEnquiries",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string"
+    },
+    "farm_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "topic": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "logged_at": {
+      "type": "string"
+    },
+    "delivery_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "sent",
+        "failed"
+      ]
+    },
+    "provider_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "full_name",
+    "email",
+    "topic",
+    "message",
+    "request_id",
+    "logged_at",
+    "delivery_status"
+  ],
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
+}
