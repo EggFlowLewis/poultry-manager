@@ -1,0 +1,11 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {createHmac} from "node:crypto";
+import {verifyStripeSignature} from "../src/lib/stripe-signature.js";
+import {billingPrices,subscriptionState} from "../src/lib/billing-policy.js";
+const org={id:"A",stripe_customer_id:"cus_A"};
+const sub={id:"sub_A",livemode:true,customer:"cus_A",metadata:{application:"poultrymanager",organization_id:"A"},status:"active",items:{data:[{quantity:1,price:{id:billingPrices.starter}}]}};
+test("subscription validates tenant and price",()=>{assert.equal(subscriptionState(sub,org).subscription_tier,"starter");assert.equal(subscriptionState({...sub,customer:"cus_B"},org),null);assert.equal(subscriptionState({...sub,livemode:false},org),null);assert.equal(subscriptionState({...sub,metadata:{application:"eggflow",organization_id:"A"}},org),null);assert.equal(subscriptionState({...sub,metadata:{application:"poultrymanager",organization_id:"B"}},org),null);});
+test("rejects unknown prices and extra items",()=>{assert.equal(subscriptionState({...sub,items:{data:[{quantity:1,price:{id:"foreign"}}]}},org),null);assert.equal(subscriptionState({...sub,items:{data:[...sub.items.data,...sub.items.data]}},org),null);});
+test("cancelled and unpaid subscription status",()=>{assert.equal(subscriptionState({...sub,status:"canceled"},org).subscription_status,"cancelled");assert.equal(subscriptionState({...sub,status:"unpaid"},org).subscription_status,"unpaid");});
+test("stripe signed payload and replay window",async()=>{const raw='{"test":true}',secret="whsec_test",t=1795566000,now=t*1000,sig=createHmac("sha256",secret).update(t+"."+raw).digest("hex"),h="t="+t+",v1="+sig;assert.equal(await verifyStripeSignature(raw,h,secret,now),true);assert.equal(await verifyStripeSignature(raw+" ",h,secret,now),false);assert.equal(await verifyStripeSignature(raw,h,secret,now+301000),false);assert.equal(await verifyStripeSignature(raw,h,"wrong",now),false);assert.equal(await verifyStripeSignature(raw,null,secret,now),false);});
