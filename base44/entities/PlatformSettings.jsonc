@@ -1,0 +1,38 @@
+{
+  "name": "PlatformSettings",
+  "type": "object",
+  "properties": {
+    "settings_key": {
+      "type": "string"
+    },
+    "annual_billing_enabled": {
+      "type": "boolean"
+    },
+    "offline_sync_beta_enabled": {
+      "type": "boolean"
+    },
+    "maintenance_mode": {
+      "type": "boolean"
+    },
+    "terms_last_updated": {
+      "type": "string",
+      "format": "date"
+    },
+    "announcement_banner_text": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "settings_key",
+    "annual_billing_enabled",
+    "offline_sync_beta_enabled",
+    "maintenance_mode",
+    "announcement_banner_text"
+  ],
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
+}
