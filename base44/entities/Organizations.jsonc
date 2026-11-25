@@ -1,0 +1,51 @@
+{
+  "name": "Organizations",
+  "properties": {
+    "company_name": {
+      "type": "string"
+    },
+    "owner_user_id": {
+      "type": "string"
+    },
+    "stripe_customer_id": {
+      "type": "string"
+    },
+    "subscription_tier": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "commercial",
+        "enterprise"
+      ]
+    },
+    "subscription_status": {
+      "type": "string",
+      "enum": [
+        "trialing",
+        "active",
+        "past_due",
+        "cancelled",
+        "unpaid",
+        "incomplete"
+      ]
+    },
+    "trial_ends_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "company_name",
+    "owner_user_id",
+    "subscription_tier",
+    "subscription_status",
+    "trial_ends_at"
+  ],
+  "type": "object",
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
+}
