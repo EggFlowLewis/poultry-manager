@@ -26,7 +26,8 @@
         "past_due",
         "cancelled",
         "unpaid",
-        "incomplete"
+        "incomplete",
+        "pending_activation"
       ]
     },
     "trial_ends_at": {
@@ -35,6 +36,11 @@
     },
     "stripe_subscription_id": {
       "type": "string"
+    },
+    "max_sheds_override": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 999
     }
   },
   "required": [
