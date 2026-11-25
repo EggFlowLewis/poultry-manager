@@ -1,0 +1,26 @@
+{
+  "name": "FarmSites",
+  "properties": {
+    "organization_id": {
+      "type": "string"
+    },
+    "site_name": {
+      "type": "string"
+    },
+    "cph": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "organization_id",
+    "site_name",
+    "cph"
+  ],
+  "type": "object",
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
+}
