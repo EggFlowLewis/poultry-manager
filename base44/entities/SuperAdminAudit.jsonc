@@ -1,0 +1,40 @@
+{
+  "name": "SuperAdminAudit",
+  "type": "object",
+  "properties": {
+    "actor_id": {
+      "type": "string"
+    },
+    "action": {
+      "type": "string"
+    },
+    "entity": {
+      "type": "string"
+    },
+    "record_id": {
+      "type": "string"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "logged_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "actor_id",
+    "action",
+    "entity",
+    "reason",
+    "logged_at"
+  ],
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
+}
