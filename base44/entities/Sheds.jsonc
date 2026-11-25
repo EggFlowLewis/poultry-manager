@@ -1,0 +1,30 @@
+{
+  "name": "Sheds",
+  "properties": {
+    "organization_id": {
+      "type": "string"
+    },
+    "site_id": {
+      "type": "string"
+    },
+    "shed_name": {
+      "type": "string"
+    },
+    "floor_area_m2": {
+      "type": "number",
+      "minimum": 0.01
+    }
+  },
+  "required": [
+    "organization_id",
+    "site_id",
+    "shed_name"
+  ],
+  "type": "object",
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
+}
