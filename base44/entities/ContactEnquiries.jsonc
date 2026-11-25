@@ -36,6 +36,15 @@
     },
     "provider_id": {
       "type": "string"
+    },
+    "support_status": {
+      "type": "string",
+      "enum": [
+        "New",
+        "In Progress",
+        "Resolved"
+      ],
+      "default": "New"
     }
   },
   "required": [
