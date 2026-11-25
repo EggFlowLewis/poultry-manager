@@ -4,9 +4,9 @@ import {requireUser} from "@/lib/auth-middleware";
 import {adminSchemas} from "@/lib/admin-schema";
 import {isSuperAdmin,scopeFor,matchesScope,cleanFields,metrics} from "@/lib/admin-policy";
 async function allowed(context){const db=context.getBase44().asServiceRole.entities;const rows=await db.User.filter({id:context.user.id});return rows.length===1&&isSuperAdmin(rows[0],process.env.PM_SUPER_ADMIN_USER_ID);}
-async function gate(context){if(!await allowed(context))throw Error("Forbidden");return context.getBase44().asServiceRole.entities;}
-async function all(entity,filter={}){const out=[];for(let skip=0;skip<20000;skip+=200){const rows=await entity.filter(filter,"-created_date",200,skip);out.push(...rows);if(rows.length<200)return out;}throw Error("Record limit reached; narrow the query.");}
-async function log(db,u,action,entity,id,org,reason){await db.SuperAdminAudit.create({actor_id:u.id,action,entity,record_id:id||"",organization_id:org||"",reason,logged_at:new Date().toISOString()});}
+export async function gate(context){if(!await allowed(context))throw Error("Forbidden");return context.getBase44().asServiceRole.entities;}
+export async function all(entity,filter={}){const out=[];for(let skip=0;skip<20000;skip+=200){const rows=await entity.filter(filter,"-created_date",200,skip);out.push(...rows);if(rows.length<200)return out;}throw Error("Record limit reached; narrow the query.");}
+export async function log(db,u,action,entity,id,org,reason){await db.SuperAdminAudit.create({actor_id:u.id,action,entity,record_id:id||"",organization_id:org||"",reason,logged_at:new Date().toISOString()});}
 function safe(row){const {departure_token_hash,token,provider_id,...rest}=row;return rest;}
 export const adminAccess=createServerFn({method:"GET"}).middleware([requireUser]).handler(async({context})=>({allowed:await allowed(context)}));
 export const adminOverview=createServerFn({method:"GET"}).middleware([requireUser]).handler(async({context})=>{const db=await gate(context);const [orgs,sites,sheds,inbox,users]=await Promise.all([all(db.Organizations),all(db.FarmSites),all(db.Sheds),all(db.ContactEnquiries),all(db.User)]);return {metrics:metrics(orgs,inbox),orgs:orgs.map(o=>({...o,owner_name:users.find(u=>u.id===o.owner_user_id)?.full_name||"",owner_email:users.find(u=>u.id===o.owner_user_id)?.email||"",cph:sites.filter(s=>s.organization_id===o.id).map(s=>s.cph).join(", "),shed_count:sheds.filter(s=>s.organization_id===o.id).length})),inbox:inbox.map(safe),collections:Object.keys(adminSchemas)};});
