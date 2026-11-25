@@ -1,0 +1,8 @@
+export const planLimits=Object.freeze({starter:2,commercial:6,enterprise:Infinity});
+export function subscriptionAllows(org,now=Date.now()){return !!org&&(org.subscription_status==="active"||org.subscription_status==="trialing"&&Number.isFinite(Date.parse(org.trial_ends_at))&&Date.parse(org.trial_ends_at)>now);}
+export function memberAccess(members,userId){const rows=members.filter(m=>m.user_id===userId&&m.status==="active");if(rows.length!==1||!rows[0].organization_id||!["Owner","Stockperson"].includes(rows[0].role))throw Error("An unambiguous active organization membership is required.");return rows[0];}
+export function tenantFilter(organizationId,filter={}){if(!organizationId)throw Error("Organization is required.");if(Object.hasOwn(filter,"organization_id")&&filter.organization_id!==organizationId)throw Error("Cross-tenant scope denied.");return {...filter,organization_id:organizationId};}
+export function tenantRecord(organizationId,record){if(!record||record.organization_id!==organizationId)throw Error("Record not found in your organization.");return record;}
+export function requireOwner(member){if(member.role!=="Owner")throw Error("Farm owner access required.");}
+export function requireShed(member,shedId){if(member.role!=="Owner"&&!member.assigned_shed_ids?.includes(shedId))throw Error("Shed not assigned.");}
+export function checkCapacity(org,kind,count){if(!subscriptionAllows(org))throw Error("Subscription inactive. Upgrade Plan.");const limit=kind==="sites"?(org.subscription_tier==="enterprise"?Infinity:1):kind==="sheds"?planLimits[org.subscription_tier]:undefined;if(limit===undefined||!Number.isInteger(count)||count<0||count>=limit)throw Error("Plan limit reached. Upgrade Plan.");}
