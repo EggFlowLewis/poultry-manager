@@ -1,0 +1,47 @@
+{
+  "name": "BreedStandards",
+  "type": "object",
+  "properties": {
+    "breed_name": {
+      "type": "string"
+    },
+    "week_number": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 8
+    },
+    "target_weight_grams": {
+      "type": "number",
+      "minimum": 0
+    },
+    "target_fcr": {
+      "type": "number",
+      "minimum": 0
+    },
+    "target_epef": {
+      "type": "number",
+      "minimum": 0
+    },
+    "source_reference": {
+      "type": "string"
+    },
+    "is_verified": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "breed_name",
+    "week_number",
+    "target_weight_grams",
+    "target_fcr",
+    "target_epef",
+    "source_reference",
+    "is_verified"
+  ],
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
+}
